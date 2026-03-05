@@ -963,7 +963,7 @@ body::before {
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 40px;
+  gap: 80px;
   margin-bottom: 40px;
 }
 
