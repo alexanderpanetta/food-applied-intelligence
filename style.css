@@ -1028,26 +1028,24 @@ body::before {
 
 @media (max-width: 640px) {
   #main-nav {
-    padding: 10px 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
+    padding: 8px 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
   }
 
   .nav-brand {
-    width: 100%;
-    text-align: center;
     font-size: 1rem;
   }
 
   .nav-links {
-    gap: 4px;
+    gap: 16px;
     justify-content: center;
   }
 
   .nav-link {
-    font-size: 0.75rem;
-    padding: 5px 10px;
+    font-size: 0.8rem;
+    padding: 5px 8px;
     white-space: nowrap;
   }
 
