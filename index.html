@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food: Applied Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div class="nav-brand">Food<span class="nav-sep">:</span> AI</div>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" data-section="hero">Home</a>
+            <a href="#" class="nav-link" data-section="quiz-section">Your Score</a>
+            <a href="#" class="nav-link" data-section="advisor">Recipe Assistant</a>
+            <a href="#" class="nav-link" data-section="about">About</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section active">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">FOOD</h1>
+            <p class="hero-subtitle">Applied Intelligence</p>
+            <div class="hero-divider"></div>
+            <p class="hero-tagline">What 21 peer-reviewed studies reveal about what you eat&nbsp;&mdash; and what you can do about it.</p>
+            <button class="btn btn-primary btn-lg" id="start-quiz-btn">Discover Your Food Score</button>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz-section" class="section">
+        <div class="container">
+            <div id="quiz-container">
+                <div id="quiz-progress">
+                    <div id="quiz-progress-track">
+                        <div id="quiz-progress-bar"></div>
+                    </div>
+                    <span id="quiz-progress-text">Question 1 of 12</span>
+                </div>
+                <div id="quiz-card" class="card">
+                    <div id="quiz-category-tag"></div>
+                    <h2 id="quiz-question"></h2>
+                    <div id="quiz-options"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section">
+        <div class="container">
+            <div id="results-header">
+                <h2 class="section-title results-title">Your Food Score</h2>
+                <div id="score-circle-wrap">
+                    <svg id="score-svg" viewBox="0 0 200 200">
+                        <circle class="score-bg" cx="100" cy="100" r="85" />
+                        <circle class="score-fill" cx="100" cy="100" r="85" id="score-arc" />
+                    </svg>
+                    <div id="score-display">
+                        <span id="score-number">0</span>
+                        <span id="score-out-of">/100</span>
+                    </div>
+                </div>
+                <div id="score-label"></div>
+                <p id="score-message"></p>
+            </div>
+            <h3 class="breakdown-title">Category Breakdown</h3>
+            <div id="category-breakdown"></div>
+            <div id="top-insight" class="card"></div>
+            <div id="results-actions">
+                <button class="btn btn-primary" id="explore-evidence-btn">Explore the Evidence</button>
+                <button class="btn btn-outline" id="retake-btn">Retake Quiz</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section id="insights" class="section">
+        <div class="container">
+            <h2 class="section-title">The Evidence</h2>
+            <p class="section-subtitle">Interactive visualizations drawn from 21 peer-reviewed studies</p>
+            <div id="chart-tabs">
+                <button class="chart-tab active" data-chart="portions">Portion Inflation</button>
+                <button class="chart-tab" data-chart="ssb">Sugary Drinks</button>
+                <button class="chart-tab" data-chart="density">Energy vs. Cost</button>
+                <button class="chart-tab" data-chart="upf">The UPF Gap</button>
+            </div>
+            <div id="chart-area">
+                <div class="chart-panel active" id="panel-portions">
+                    <h3>How Portions Have Grown Since 1977</h3>
+                    <p class="chart-source">Source: Nielsen &amp; Popkin (2003), <em>JAMA</em> &mdash; 63,380 individuals across 3 national surveys, p &le; 0.01</p>
+                    <div class="chart-wrap"><canvas id="chart-portions"></canvas></div>
+                </div>
+                <div class="chart-panel" id="panel-ssb">
+                    <h3>The Sugar-Sweetened Beverage Explosion</h3>
+                    <p class="chart-source">Sources: Vartanian et al. (2007), 88-study meta-analysis; Brownell &amp; Frieden (2009), <em>NEJM</em></p>
+                    <div class="chart-wrap"><canvas id="chart-ssb"></canvas></div>
+                </div>
+                <div class="chart-panel" id="panel-density">
+                    <h3>The Price of Healthy Eating</h3>
+                    <p class="chart-source">Source: Drewnowski &amp; Specter (2004), <em>AJCN</em> &mdash; Economic analysis of energy density and food costs</p>
+                    <div class="chart-wrap"><canvas id="chart-density"></canvas></div>
+                </div>
+                <div class="chart-panel" id="panel-upf">
+                    <h3>The Ultra-Processed Calorie Gap</h3>
+                    <p class="chart-source">Source: Hall et al. (2019), <em>Cell Metabolism</em> &mdash; NIH inpatient randomized controlled trial, n=20</p>
+                    <div class="chart-wrap"><canvas id="chart-upf"></canvas></div>
+                </div>
+            </div>
+            <div id="key-findings" class="card">
+                <h3>Key Cross-Study Findings</h3>
+                <ul>
+                    <li><strong>Three universal levers</strong> reduce calorie intake across every dietary pattern: lower energy density, slower eating, fewer hyper-palatable foods. <span class="citation">Hall et al., 2019; Rolls et al., 1999; Fazzino et al., 2023</span></li>
+                    <li><strong>People eat ~30% more</strong> when given larger portions &mdash; without feeling more full or even noticing. <span class="citation">Rolls et al., 2002 &mdash; controlled experiment, n=51</span></li>
+                    <li><strong>Each daily SSB</strong> increases child obesity risk by 60% and doubles adult diabetes risk at 1+ servings/day. <span class="citation">Brownell et al., 2009; Vartanian et al., 2007 &mdash; 88-study meta-analysis</span></li>
+                    <li><strong>Fast food &ge;2x/week</strong> over 15 years: +4.5 kg weight gain and 2x insulin resistance vs. &lt;1x/week. <span class="citation">Pereira et al., 2005 &mdash; 15-year cohort, n=3,031</span></li>
+                    <li><strong>No country</strong> has successfully reversed its obesity epidemic through public health measures alone. <span class="citation">Swinburn et al., 2011 &mdash; The Lancet</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisor Section -->
+    <section id="advisor" class="section">
+        <div class="container">
+            <h2 class="section-title">Recipe Advisor</h2>
+            <p class="section-subtitle">Paste a recipe and get evidence-based suggestions for healthier swaps</p>
+            <div id="advisor-wrap" class="card">
+                <textarea id="advisor-input" placeholder="Paste a recipe here (ingredients and instructions)..."></textarea>
+                <button class="btn btn-primary" id="analyze-btn">Analyze Recipe</button>
+            </div>
+            <div id="advisor-output" class="card hidden"></div>
+            <p class="advisor-note">Analysis uses keyword matching against our 21-study evidence base. No data leaves your browser.</p>
+        </div>
+    </section>
+
+    <!-- Bibliography Section -->
+    <section id="bibliography" class="section">
+        <div class="container">
+            <h2 class="section-title">Bibliography</h2>
+            <p class="section-subtitle">The 21 peer-reviewed studies behind every claim in this app</p>
+
+            <div class="bib-group">
+                <h3>Ultra-Processed Foods &amp; Food Industry</h3>
+                <ol class="bib-list" start="1">
+                    <li>Hall, K. D., Ayuketah, A., Brychta, R., Cai, H., Cassimatis, T., Chen, K. Y., Chung, S. T., Costa, E., Courville, A., Darcey, V., Fletcher, L. A., Forde, C. G., Gharib, A. M., Guo, J., Howard, R., Joseph, P. V., McGehee, S., Ouwerkerk, R., Raisinger, K., &hellip; Zhou, M. (2019). Ultra-processed diets cause excess calorie intake and weight gain: An inpatient randomized controlled trial of ad libitum food intake. <em>Cell Metabolism</em>, <em>30</em>(1), 67&ndash;77. <span class="bib-type">RCT, n=20</span></li>
+                    <li>Monteiro, C. A., Levy, R. B., Claro, R. M., de Castro, I. R. R., &amp; Cannon, G. (2010). A new classification of foods based on the extent and purpose of their processing. <em>Cadernos de Sa&uacute;de P&uacute;blica</em>, <em>26</em>(11), 2039&ndash;2049. <span class="bib-type">Classification framework</span></li>
+                    <li>Monteiro, C. A., Cannon, G., Moubarac, J.-C., Levy, R. B., Louzada, M. L. C., &amp; Jaime, P. C. (2018). The UN Decade of Nutrition, the NOVA food classification and the trouble with ultra-processing. <em>Public Health Nutrition</em>, <em>21</em>(1), 5&ndash;17. <span class="bib-type">Framework elaboration</span></li>
+                    <li>Monteiro, C. A., Cannon, G., Levy, R. B., Moubarac, J.-C., Louzada, M. L. C., Rauber, F., Khandpur, N., Cediel, G., Neri, D., Martinez-Steele, E., Baraldi, L. G., &amp; Jaime, P. C. (2019). Ultra-processed foods: What they are and how to identify them. <em>Public Health Nutrition</em>, <em>22</em>(5), 936&ndash;941. <span class="bib-type">Practical guide</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-group">
+                <h3>Portion Size</h3>
+                <ol class="bib-list" start="5">
+                    <li>Rolls, B. J., Morris, E. L., &amp; Roe, L. S. (2002). Portion size of food affects energy intake in normal-weight and overweight men and women. <em>The American Journal of Clinical Nutrition</em>, <em>76</em>(6), 1207&ndash;1213. <span class="bib-type">Experiment, n=51</span></li>
+                    <li>Young, L. R., &amp; Nestle, M. (2002). The contribution of expanding portion sizes to the US obesity epidemic. <em>American Journal of Public Health</em>, <em>92</em>(2), 246&ndash;249. <span class="bib-type">Historical analysis</span></li>
+                    <li>Wansink, B., Painter, J. E., &amp; North, J. (2005). Bottomless bowls: Why visual cues of portion size may influence intake. <em>Obesity Research</em>, <em>13</em>(1), 93&ndash;100. <span class="bib-type">Experiment &mdash; Wansink data caveat*</span></li>
+                    <li>Wansink, B., &amp; Sobal, J. (2007). Mindless eating: The 200 daily food decisions we overlook. <em>Environment and Behavior</em>, <em>39</em>(1), 106&ndash;123. <span class="bib-type">Observational &mdash; Wansink data caveat*</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-group">
+                <h3>Obesogenic Environments</h3>
+                <ol class="bib-list" start="9">
+                    <li>Swinburn, B., Egger, G., &amp; Raza, F. (1999). Dissecting obesogenic environments: The development and application of a framework for identifying and prioritizing environmental interventions for obesity. <em>Preventive Medicine</em>, <em>29</em>(6), 563&ndash;570. <span class="bib-type">Framework (ANGELO)</span></li>
+                    <li>Swinburn, B. A., Sacks, G., Hall, K. D., McPherson, K., Finegood, D. T., Moodie, M. L., &amp; Gortmaker, S. L. (2011). The global obesity pandemic: Shaped by global drivers and local environments. <em>The Lancet</em>, <em>378</em>(9793), 804&ndash;814. <span class="bib-type">Global synthesis</span></li>
+                    <li>Egger, G., &amp; Swinburn, B. (1997). An &ldquo;ecological&rdquo; approach to the obesity pandemic. <em>BMJ</em>, <em>315</em>(7106), 477&ndash;480. <span class="bib-type">Theoretical</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-group">
+                <h3>Food Pricing &amp; Policy</h3>
+                <ol class="bib-list" start="12">
+                    <li>Brownell, K. D., &amp; Frieden, T. R. (2009). Ounces of prevention &mdash; The public policy case for taxes on sugared beverages. <em>New England Journal of Medicine</em>, <em>360</em>(18), 1805&ndash;1808. <span class="bib-type">Policy argument</span></li>
+                    <li>Brownell, K. D., Farley, T., Willett, W. C., Popkin, B. M., Chaloupka, F. J., Thompson, J. W., &amp; Ludwig, D. S. (2009). The public health and economic benefits of taxing sugar-sweetened beverages. <em>New England Journal of Medicine</em>, <em>361</em>(16), 1599&ndash;1605. <span class="bib-type">Economic modeling</span></li>
+                    <li>Jacobson, M. F., &amp; Brownell, K. D. (2000). Small taxes on soft drinks and snack foods to promote health. <em>American Journal of Public Health</em>, <em>90</em>(6), 854&ndash;857. <span class="bib-type">Policy proposal</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-group">
+                <h3>Fast Food &amp; Built Food Environment</h3>
+                <ol class="bib-list" start="15">
+                    <li>Pereira, M. A., Kartashov, A. I., Ebbeling, C. B., Van Horn, L., Slattery, M. L., Jacobs, D. R., Jr., &amp; Ludwig, D. S. (2005). Fast-food habits, weight gain, and insulin resistance (the CARDIA study): 15-year prospective analysis. <em>The Lancet</em>, <em>365</em>(9453), 36&ndash;42. <span class="bib-type">Prospective cohort, n=3,031, 15 years</span></li>
+                    <li>Nielsen, S. J., &amp; Popkin, B. M. (2003). Patterns and trends in food portion sizes, 1977&ndash;1998. <em>JAMA</em>, <em>289</em>(4), 450&ndash;453. <span class="bib-type">National survey analysis</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-group">
+                <h3>Energy Density</h3>
+                <ol class="bib-list" start="17">
+                    <li>Rolls, B. J., Bell, E. A., &amp; Castellanos, V. H. (1999). Energy density but not fat content of foods affected energy intake in lean and obese women. <em>The American Journal of Clinical Nutrition</em>, <em>69</em>(5), 863&ndash;871. <span class="bib-type">Experiment, n=34</span></li>
+                    <li>Drewnowski, A., &amp; Specter, S. E. (2004). Poverty and obesity: The role of energy density and energy costs. <em>The American Journal of Clinical Nutrition</em>, <em>79</em>(1), 6&ndash;16. <span class="bib-type">Economic analysis</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-group">
+                <h3>Food Marketing &amp; Industry</h3>
+                <ol class="bib-list" start="19">
+                    <li>Brownell, K. D., &amp; Horgen, K. B. (2004). <em>Food fight: The inside story of the food industry, America&rsquo;s obesity crisis, and what we can do about it.</em> McGraw-Hill. <span class="bib-type">Book</span></li>
+                    <li>Vartanian, L. R., Schwartz, M. B., &amp; Brownell, K. D. (2007). Effects of soft drink consumption on nutrition and health: A systematic review and meta-analysis. <em>American Journal of Public Health</em>, <em>97</em>(4), 667&ndash;675. <span class="bib-type">Systematic review &amp; meta-analysis, 88 studies</span></li>
+                    <li>Fazzino, T. L., Courville, A. B., Guo, J., &amp; Hall, K. D. (2023). Ad libitum meal energy intake is positively influenced by energy density, eating rate, and hyper-palatable food characteristics. <em>Nature Food</em>, <em>4</em>, 144&ndash;147. <span class="bib-type">Inpatient experiment, 2,733 meals</span></li>
+                </ol>
+            </div>
+
+            <div class="bib-caveat card">
+                <p><strong>* Wansink data caveat:</strong> Brian Wansink&rsquo;s lab was found guilty of research misconduct by Cornell University in 2018, resulting in 18 retractions across his body of work. These two specific papers have not been retracted, but both have documented issues:</p>
+                <ul>
+                    <li><strong>&ldquo;Bottomless Bowls&rdquo; (Study 7):</strong> Forensic analysis by James Heathers (SPRITE method) identified statistically impossible values &mdash; including cell sizes incompatible with the described experimental design. However, a large preregistered replication (Lopez et al., 2024; <em>Journal of Experimental Psychology: General</em>, n=464) confirmed the core effect: people with self-refilling bowls did eat significantly more without noticing. The effect size was roughly half of Wansink&rsquo;s original claim (d=0.45 vs. d=0.84).</li>
+                    <li><strong>&ldquo;200 Daily Food Decisions&rdquo; (Study 8):</strong> Researchers at the Max Planck Institute (Claassen, Hertwig, &amp; Mata, 2025; <em>Appetite</em>) demonstrated that the &ldquo;200+&rdquo; figure is a measurement artifact caused by the subadditivity effect &mdash; a known cognitive bias where estimating subcategories separately and summing them yields inflated totals. The specific number should not be cited as an empirical finding.</li>
+                </ul>
+                <p>We retain both studies because the underlying concepts &mdash; visual cues influence how much we eat, and people are poor judges of their own consumption &mdash; are supported by independent evidence. But the specific numbers from these papers should be treated with caution.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About &amp; Methodology</h2>
+            <p class="section-subtitle">How this app was built and why you can trust it</p>
+
+            <div class="about-block card">
+                <h3>Who Made This</h3>
+                <p>This app was created by Alex Panetta, a veteran political journalist now doing a master&rsquo;s in AI management at Georgetown University. He&rsquo;s writing about his lessons in a <a href="https://alexpanetta.substack.com/" target="_blank" rel="noopener">blog on practical, ethical use cases for AI</a>. He was inspired by a wonderful book co-authored by his friend Julia Belluz, <a href="https://www.penguinrandomhouse.com/books/671334/food-intelligence-by-julia-belluz-and-kevin-hall-phd/" target="_blank" rel="noopener"><em>Food Intelligence</em></a>, and decided to create this tool to help apply its lessons in his own life.</p>
+            </div>
+
+            <div class="about-block card">
+                <h3>What This App Is</h3>
+                <p>Food: Applied Intelligence translates 21 peer-reviewed nutritional studies into actionable guidance. Every claim, score, visualization, and recommendation traces back to a specific published study. Nothing is fabricated, estimated, or inferred beyond what the evidence supports.</p>
+            </div>
+
+            <div class="about-block card">
+                <h3>Chain of Evidence</h3>
+                <p>Every claim in this app follows a verifiable chain:</p>
+                <div class="chain-diagram">
+                    <span class="chain-step">Original Study<br><small>(peer-reviewed)</small></span>
+                    <span class="chain-arrow">&rarr;</span>
+                    <span class="chain-step">Source Text<br><small>(19/21 full verbatim)</small></span>
+                    <span class="chain-arrow">&rarr;</span>
+                    <span class="chain-step">Distilled Findings<br><small>(line-by-line citations)</small></span>
+                    <span class="chain-arrow">&rarr;</span>
+                    <span class="chain-step">Composite Synthesis<br><small>(cross-study, tagged)</small></span>
+                    <span class="chain-arrow">&rarr;</span>
+                    <span class="chain-step">App Output<br><small>(what you see)</small></span>
+                </div>
+            </div>
+
+            <div class="about-block card">
+                <h3>Evidence Strength</h3>
+                <p>We distinguish between types of evidence and always tell you which kind backs each claim:</p>
+                <ul class="evidence-types">
+                    <li><strong>Randomized Controlled Trial (RCT)</strong> &mdash; Gold standard. Participants randomly assigned to conditions. Can establish causation. <em>Example: Hall et al. (2019) NIH inpatient trial.</em></li>
+                    <li><strong>Meta-Analysis</strong> &mdash; Statistical synthesis of multiple studies. Strongest when including RCTs. <em>Example: Vartanian et al. (2007), 88 studies on soft drinks.</em></li>
+                    <li><strong>Prospective Cohort</strong> &mdash; Large groups followed over time. Strong associational evidence. <em>Example: Pereira et al. (2005), 3,031 adults over 15 years.</em></li>
+                    <li><strong>Cross-Sectional / Observational</strong> &mdash; Snapshot of populations. Can reveal patterns but not causation. <em>Example: Nielsen &amp; Popkin (2003), national portion size surveys.</em></li>
+                    <li><strong>Modeled / Policy Analysis</strong> &mdash; Projections based on data. Useful for policy design. <em>Example: Brownell et al. (2009), SSB tax revenue estimates.</em></li>
+                </ul>
+            </div>
+
+            <div class="about-block card">
+                <h3>What We Don&rsquo;t Have</h3>
+                <p>Transparency about limitations is as important as the evidence itself:</p>
+                <ul>
+                    <li>The landmark UPF trial (Hall 2019) was only 2 weeks per arm &mdash; long-term RCT data on ultra-processed food doesn&rsquo;t yet exist.</li>
+                    <li>Fast food evidence comes primarily from one (excellent) 15-year study.</li>
+                    <li>Two Wansink studies are included with data integrity caveats throughout.</li>
+                    <li>One study (Brownell &amp; Horgen, 2003) is a book &mdash; no digital full text is available.</li>
+                    <li>One study (Fazzino, 2023) was too recent for full text access &mdash; we rely on the abstract and press releases.</li>
+                    <li>These studies do not cover microbiome effects, mental health connections, specific food additives, or cultural variation beyond the US, Brazil, UK, and Australia.</li>
+                </ul>
+            </div>
+
+            <div class="about-block card">
+                <h3>How the Quiz Scoring Works</h3>
+                <p>The Food Score is calculated from 12 questions across 5 evidence-based categories: Ultra-Processed Food Exposure, Liquid Calories, Portion Habits, Food Environment, and Protective Habits. Each question maps to specific study findings. Your answers are scored 0&ndash;10, totaled, and normalized to a 0&ndash;100 scale. Category breakdowns show which areas of your diet carry the most risk &mdash; and the most opportunity for improvement &mdash; according to the research.</p>
+                <p>This is an educational tool, not medical advice. Consult a healthcare professional for personalized dietary guidance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="app-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>What This App Is Based On</h3>
+                    <p>Here is a <a href="#" class="bib-footer-link" data-section="bibliography">bibliography for the 21 peer-reviewed studies</a> that informed this app.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>The Evidence in Visuals</h4>
+                    <p>Interactive visualizations drawn from 21 peer-reviewed studies. <a href="#" class="nav-link-footer" data-section="insights">Explore the data</a>.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 <a href="https://alexpanetta.substack.com/" target="_blank" rel="noopener">Alex Panetta</a> &middot; Built with evidence from studies in <a href="https://www.penguinrandomhouse.com/books/671334/food-intelligence-by-julia-belluz-and-kevin-hall-phd/" target="_blank" rel="noopener"><em>Food Intelligence</em></a> by Julia Belluz and Kevin Hall.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
