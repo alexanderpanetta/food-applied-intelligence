@@ -1,6 +1,6 @@
 {
   "name": "Food: Applied Intelligence",
-  "short_name": "Food AI",
+  "short_name": "Food : AI",
   "description": "What 21 peer-reviewed studies reveal about what you eat — and what you can do about it.",
   "start_url": "./index.html",
   "display": "standalone",
