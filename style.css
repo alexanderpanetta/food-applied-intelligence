@@ -1062,8 +1062,15 @@ body::before {
     padding: 16px 32px;
   }
 
-  .section {
-    padding: 90px 0 32px;
+  .section,
+  #quiz-section,
+  #results,
+  #insights,
+  #advisor,
+  #bibliography,
+  #about {
+    padding-top: 100px;
+    padding-bottom: 32px;
   }
 
   #quiz-card {
