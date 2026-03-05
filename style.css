@@ -169,7 +169,7 @@ body::before {
 
 .nav-sep { color: var(--green-light); }
 
-.nav-links { display: flex; gap: 20px; }
+.nav-links { display: flex; gap: 6px; }
 
 .nav-link {
   color: rgba(255,255,255,0.6);
