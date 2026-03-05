@@ -70,7 +70,7 @@ body::before {
 
 .section {
   display: none;
-  padding: 56px 0 40px;
+  padding: 72px 0 40px;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -256,7 +256,7 @@ body::before {
 /* ── Quiz Section ──────────────────────────────────────────── */
 
 #quiz-section {
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 #quiz-section.active { display: block; }
@@ -357,7 +357,7 @@ body::before {
 /* ── Results Section ───────────────────────────────────────── */
 
 #results {
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 #results-header {
@@ -543,7 +543,7 @@ body::before {
 /* ── Insights Section ──────────────────────────────────────── */
 
 #insights {
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 #chart-tabs {
@@ -652,7 +652,7 @@ body::before {
 /* ── Advisor Section ───────────────────────────────────────── */
 
 #advisor {
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 #advisor-wrap {
@@ -767,7 +767,7 @@ body::before {
 /* ── Bibliography Section ──────────────────────────────────── */
 
 #bibliography {
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 .bib-group {
@@ -846,7 +846,7 @@ body::before {
 /* ── About Section ─────────────────────────────────────────── */
 
 #about {
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 .about-block {
