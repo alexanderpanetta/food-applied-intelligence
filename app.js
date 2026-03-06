@@ -564,7 +564,9 @@
           citation: entry.citation,
           isPositive: entry.category === 'Vegetables & Legumes' ||
                       entry.category === 'Whole Fruits' ||
-                      entry.category === 'Healthy Fats & Omega-3s'
+                      entry.category === 'Healthy Fats & Omega-3s' ||
+                      entry.category === 'Aromatics & Herbs',
+          weight: entry.weight || 1
         });
       }
     });
@@ -582,23 +584,52 @@
       return (a.isPositive ? 1 : 0) - (b.isPositive ? 1 : 0);
     });
 
-    // Calculate health score (1-10)
-    var positives = 0;
-    var risks = 0;
+    // Calculate health score using calorie-weighted proportions
+    var riskCalWeight = 0;
+    var positiveCalWeight = 0;
+    var riskCategories = [];
+
     findings.forEach(function (f) {
-      if (f.isPositive) positives++;
-      else risks++;
+      var w = f.weight || 1;
+      // Multiply weight by number of matched terms for prominence
+      var matchBoost = Math.min(f.matched.length, 3); // cap at 3
+      var effectiveWeight = w * (0.7 + matchBoost * 0.3);
+
+      if (f.isPositive) {
+        positiveCalWeight += effectiveWeight;
+      } else {
+        riskCalWeight += effectiveWeight;
+        riskCategories.push(f.category);
+      }
     });
-    var healthScore = Math.round(5 + (positives * 1.5) - (risks * 1));
+
+    var totalWeight = riskCalWeight + positiveCalWeight;
+    var riskPct = totalWeight > 0 ? Math.round((riskCalWeight / totalWeight) * 100) : 0;
+
+    // Score: 10 = all positive, 1 = all risk
+    var healthScore;
+    if (totalWeight === 0) {
+      healthScore = 5;
+    } else {
+      var positiveRatio = positiveCalWeight / totalWeight;
+      healthScore = Math.round(positiveRatio * 9) + 1;
+    }
     healthScore = Math.max(1, Math.min(10, healthScore));
 
     var scoreClass = healthScore <= 4 ? 'score-red' : healthScore <= 7 ? 'score-yellow' : 'score-green';
+
+    // Build risk summary
+    var riskSummary = '';
+    if (riskCategories.length > 0) {
+      riskSummary = 'Estimated ~' + riskPct + '% of this recipe\'s caloric weight comes from ' +
+        riskCategories.slice(0, 3).join(', ').toLowerCase() + '.';
+    }
 
     var html =
       '<div class="recipe-score-wrap">' +
         '<div class="recipe-score ' + scoreClass + '">' + healthScore + '<span>/10</span></div>' +
         '<div class="recipe-score-label">Health Score</div>' +
-        '<div class="recipe-score-detail">' + positives + ' positive and ' + risks + ' risk categor' + (risks === 1 ? 'y' : 'ies') + ' identified</div>' +
+        '<div class="recipe-score-detail">' + riskSummary + '</div>' +
       '</div>';
 
     findings.forEach(function (f) {
