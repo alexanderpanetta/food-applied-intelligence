@@ -291,10 +291,14 @@
 
             <div class="about-block card">
                 <h3>How the Recipe Health Score Works</h3>
-                <p>When you paste a recipe into the Recipe Assistant, the app scans for ingredients that match 12 evidence-based categories &mdash; 4 positive (vegetables, fruits, healthy fats, aromatics/herbs) and 8 risk (added sugars, saturated fats, SSBs, refined grains, hyper-palatable snacks, processed meats, cheese, and frying).</p>
-                <p>Each category carries a <strong>severity weight</strong> based on the strength of its evidence. Added sugars (1.8) and sugar-sweetened beverages (2.0) weigh far more than cheese (0.5) or aromatics like garlic (0.2). If a recipe matches multiple terms within a category &mdash; say, &ldquo;sugar&rdquo; and &ldquo;corn syrup&rdquo; &mdash; that category&rsquo;s weight is boosted further to reflect its prominence in the recipe.</p>
-                <p>The Health Score (1&ndash;10) is calculated from the <strong>proportion of total caloric weight</strong> coming from positive vs. risk categories. A recipe where most of the caloric weight comes from vegetables and healthy fats scores high (green). A recipe dominated by added sugars and frying scores low (red). The app also shows the estimated percentage of the recipe&rsquo;s caloric weight attributable to risk categories.</p>
-                <p>All analysis runs locally in your browser using keyword matching &mdash; no data is sent to any server.</p>
+                <p>When you paste a recipe into the Recipe Assistant, the app does three things:</p>
+                <ol>
+                    <li><strong>Ingredient matching:</strong> It scans for ingredients across 12 evidence-based categories &mdash; 4 positive (vegetables, fruits, healthy fats, aromatics/herbs) and 8 risk (added sugars, saturated fats, SSBs, refined grains, hyper-palatable snacks, processed meats, cheese, and frying).</li>
+                    <li><strong>Quantity parsing:</strong> For each matched ingredient, the app reads the quantity and unit from the recipe text (e.g., &ldquo;1/4 cup,&rdquo; &ldquo;2 tablespoons,&rdquo; &ldquo;1 pound&rdquo;). It then estimates the caloric contribution of each ingredient using a lookup table of approximate calories per unit for each category. For example, 1/4 cup of maple syrup &asymp; 193 calories, while 2 cloves of garlic &asymp; 8 calories.</li>
+                    <li><strong>Proportional scoring:</strong> The Health Score (1&ndash;10) is calculated from the <strong>proportion of estimated calories</strong> coming from positive vs. risk ingredients. A recipe where most calories come from salmon and vegetables scores high (green, 8&ndash;10). A recipe dominated by added sugars and deep frying scores low (red, 1&ndash;4). The app also displays the estimated percentage of the recipe&rsquo;s calories attributable to risk categories.</li>
+                </ol>
+                <p>This means a clove of garlic won&rsquo;t offset a cup of sugar &mdash; actual ingredient quantities drive the score, not just the number of categories matched.</p>
+                <p>All analysis runs locally in your browser using keyword matching and quantity parsing &mdash; no data is sent to any server.</p>
                 <p>This is an educational tool, not medical advice. Consult a healthcare professional for personalized dietary guidance.</p>
             </div>
         </div>
