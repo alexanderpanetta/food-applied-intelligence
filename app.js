@@ -534,6 +534,108 @@
     document.getElementById('analyze-btn').addEventListener('click', analyzeRecipe);
   }
 
+  // ── Quantity Parsing & Calorie Estimation ─────────────────
+
+  // Approximate calories per unit for each category
+  var CAL_PER_UNIT = {
+    'Added Sugars':            { cup: 770, tbsp: 48, tsp: 16, oz: 96, lb: 1540, fallback: 100 },
+    'Saturated/Added Fats':    { cup: 1628, tbsp: 102, tsp: 34, oz: 204, lb: 3256, stick: 810, fallback: 150 },
+    'Sugar-Sweetened Beverages':{ cup: 100, can: 140, bottle: 240, oz: 12, liter: 400, fallback: 140 },
+    'Refined Grains':          { cup: 455, tbsp: 28, oz: 100, lb: 1650, fallback: 200 },
+    'Hyper-Palatable Snacks':  { cup: 540, oz: 150, bag: 1200, fallback: 300 },
+    'Processed Meats':         { cup: 300, slice: 45, oz: 70, lb: 1100, strip: 43, fallback: 100 },
+    'Cheese / Dairy Fat':      { cup: 440, oz: 110, slice: 70, tbsp: 55, lb: 1760, fallback: 110 },
+    'Frying / High-Heat Oil Cooking': { cup: 1900, tbsp: 120, tsp: 40, fallback: 200 },
+    'Healthy Fats & Omega-3s': { cup: 800, tbsp: 120, oz: 55, lb: 900, fillet: 400, can: 200, fallback: 200 },
+    'Vegetables & Legumes':    { cup: 35, oz: 10, lb: 130, can: 100, bunch: 30, head: 50, fallback: 30 },
+    'Aromatics & Herbs':       { clove: 4, tsp: 2, tbsp: 5, bunch: 10, sprig: 1, fallback: 5 },
+    'Whole Fruits':            { cup: 60, oz: 15, lb: 240, fallback: 50 }
+  };
+
+  var UNIT_MAP = {
+    'cup': 'cup', 'cups': 'cup',
+    'tablespoon': 'tbsp', 'tablespoons': 'tbsp', 'tbsp': 'tbsp',
+    'teaspoon': 'tsp', 'teaspoons': 'tsp', 'tsp': 'tsp',
+    'ounce': 'oz', 'ounces': 'oz', 'oz': 'oz',
+    'pound': 'lb', 'pounds': 'lb', 'lb': 'lb', 'lbs': 'lb',
+    'fillet': 'fillet', 'fillets': 'fillet',
+    'slice': 'slice', 'slices': 'slice',
+    'clove': 'clove', 'cloves': 'clove',
+    'can': 'can', 'cans': 'can',
+    'stick': 'stick', 'sticks': 'stick',
+    'strip': 'strip', 'strips': 'strip',
+    'bunch': 'bunch', 'bunches': 'bunch',
+    'sprig': 'sprig', 'sprigs': 'sprig',
+    'head': 'head', 'heads': 'head',
+    'bag': 'bag', 'bags': 'bag',
+    'bottle': 'bottle', 'bottles': 'bottle',
+    'liter': 'liter', 'liters': 'liter'
+  };
+
+  function parseQuantityNear(input, pattern) {
+    var idx = input.indexOf(pattern);
+    if (idx === -1) return null;
+
+    // Look at the 40 chars before the matched ingredient
+    var prefix = input.substring(Math.max(0, idx - 40), idx);
+
+    // Parse fraction or decimal number: "1/4", "1 1/2", "0.5", "2"
+    var numMatch = prefix.match(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+\.?\d*)\s*(?:-\s*)?(\w+)?\s*$/);
+    if (!numMatch) return null;
+
+    var numStr = numMatch[1].trim();
+    var unitStr = (numMatch[2] || '').toLowerCase();
+
+    // Parse the number
+    var qty;
+    if (numStr.indexOf('/') !== -1) {
+      var parts = numStr.split(/\s+/);
+      if (parts.length === 2) {
+        // "1 1/2"
+        var frac = parts[1].split('/');
+        qty = parseInt(parts[0]) + parseInt(frac[0]) / parseInt(frac[1]);
+      } else {
+        // "1/4"
+        var frac2 = parts[0].split('/');
+        qty = parseInt(frac2[0]) / parseInt(frac2[1]);
+      }
+    } else {
+      qty = parseFloat(numStr);
+    }
+
+    var unit = UNIT_MAP[unitStr] || null;
+    return { qty: qty, unit: unit };
+  }
+
+  function estimateCalories(category, input, matchedPatterns) {
+    var calTable = CAL_PER_UNIT[category];
+    if (!calTable) return calTable ? calTable.fallback : 100;
+
+    var totalCal = 0;
+    var foundQuantity = false;
+
+    matchedPatterns.forEach(function (pattern) {
+      var parsed = parseQuantityNear(input, pattern);
+      if (parsed && parsed.unit && calTable[parsed.unit]) {
+        totalCal += parsed.qty * calTable[parsed.unit];
+        foundQuantity = true;
+      } else if (parsed && parsed.qty) {
+        // Have a number but no recognized unit — use fallback scaled by quantity
+        totalCal += parsed.qty * calTable.fallback;
+        foundQuantity = true;
+      }
+    });
+
+    if (!foundQuantity) {
+      // No quantity found, use fallback
+      totalCal = calTable.fallback;
+    }
+
+    return totalCal;
+  }
+
+  // ── Recipe Analysis ─────────────────────────────────────────
+
   function analyzeRecipe() {
     var input = document.getElementById('advisor-input').value.trim().toLowerCase();
     var outputEl = document.getElementById('advisor-output');
@@ -584,34 +686,31 @@
       return (a.isPositive ? 1 : 0) - (b.isPositive ? 1 : 0);
     });
 
-    // Calculate health score using calorie-weighted proportions
-    var riskCalWeight = 0;
-    var positiveCalWeight = 0;
+    // Calculate health score using calorie-estimated proportions
+    var riskCal = 0;
+    var positiveCal = 0;
     var riskCategories = [];
 
     findings.forEach(function (f) {
-      var w = f.weight || 1;
-      // Multiply weight by number of matched terms for prominence
-      var matchBoost = Math.min(f.matched.length, 3); // cap at 3
-      var effectiveWeight = w * (0.7 + matchBoost * 0.3);
+      var estCal = estimateCalories(f.category, input, f.matched);
 
       if (f.isPositive) {
-        positiveCalWeight += effectiveWeight;
+        positiveCal += estCal;
       } else {
-        riskCalWeight += effectiveWeight;
+        riskCal += estCal;
         riskCategories.push(f.category);
       }
     });
 
-    var totalWeight = riskCalWeight + positiveCalWeight;
-    var riskPct = totalWeight > 0 ? Math.round((riskCalWeight / totalWeight) * 100) : 0;
+    var totalCal = riskCal + positiveCal;
+    var riskPct = totalCal > 0 ? Math.round((riskCal / totalCal) * 100) : 0;
 
     // Score: 10 = all positive, 1 = all risk
     var healthScore;
-    if (totalWeight === 0) {
+    if (totalCal === 0) {
       healthScore = 5;
     } else {
-      var positiveRatio = positiveCalWeight / totalWeight;
+      var positiveRatio = positiveCal / totalCal;
       healthScore = Math.round(positiveRatio * 9) + 1;
     }
     healthScore = Math.max(1, Math.min(10, healthScore));
@@ -620,9 +719,11 @@
 
     // Build risk summary
     var riskSummary = '';
-    if (riskCategories.length > 0) {
-      riskSummary = 'Estimated ~' + riskPct + '% of this recipe\'s caloric weight comes from ' +
+    if (riskCategories.length > 0 && riskPct > 0) {
+      riskSummary = 'Estimated ~' + riskPct + '% of this recipe\'s calories come from ' +
         riskCategories.slice(0, 3).join(', ').toLowerCase() + '.';
+    } else {
+      riskSummary = 'No significant risk categories detected.';
     }
 
     var html =
