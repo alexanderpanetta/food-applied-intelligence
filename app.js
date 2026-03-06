@@ -548,6 +548,7 @@
     'Frying / High-Heat Oil Cooking': { cup: 1900, tbsp: 120, tsp: 40, fallback: 200 },
     'Healthy Fats & Omega-3s': { cup: 800, tbsp: 120, oz: 55, lb: 900, fillet: 400, can: 200, fallback: 200 },
     'Whole Proteins & Dairy':  { cup: 150, oz: 45, lb: 700, fallback: 70 },
+    'Whole Grains':            { cup: 350, oz: 110, lb: 1600, tbsp: 30, fallback: 200 },
     'Vegetables & Legumes':    { cup: 35, oz: 10, lb: 130, can: 100, bunch: 30, head: 50, fallback: 30 },
     'Aromatics & Herbs':       { clove: 4, tsp: 2, tbsp: 5, bunch: 10, sprig: 1, fallback: 5 },
     'Whole Fruits':            { cup: 60, oz: 15, lb: 240, fallback: 50 }
@@ -683,6 +684,7 @@
                       entry.category === 'Whole Fruits' ||
                       entry.category === 'Healthy Fats & Omega-3s' ||
                       entry.category === 'Whole Proteins & Dairy' ||
+                      entry.category === 'Whole Grains' ||
                       entry.category === 'Aromatics & Herbs',
           weight: entry.weight || 1
         });
