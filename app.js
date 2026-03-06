@@ -576,11 +576,16 @@
     var idx = input.indexOf(pattern);
     if (idx === -1) return null;
 
-    // Look at the 40 chars before the matched ingredient
-    var prefix = input.substring(Math.max(0, idx - 40), idx);
+    // Look at the 60 chars before the matched ingredient
+    var prefix = input.substring(Math.max(0, idx - 60), idx);
 
-    // Parse fraction or decimal number: "1/4", "1 1/2", "0.5", "2"
-    var numMatch = prefix.match(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+\.?\d*)\s*(?:-\s*)?(\w+)?\s*$/);
+    // Only search from the last newline (stay on the same recipe line)
+    var lastNL = prefix.lastIndexOf('\n');
+    if (lastNL >= 0) prefix = prefix.substring(lastNL + 1);
+
+    // Find the first number + optional unit on this line
+    // Handles "3 cups white cabbage" — finds "3" + "cups" even with adjectives in between
+    var numMatch = prefix.match(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+\.?\d*)\s*(?:-\s*)?(\w+)?/);
     if (!numMatch) return null;
 
     var numStr = numMatch[1].trim();

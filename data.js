@@ -226,7 +226,7 @@ const CHART_UPF_DATA = {
 
 const ADVISOR_KEYWORDS = [
   {
-    patterns: ['honey', 'corn syrup', 'high fructose', 'maple syrup', 'agave', 'brown sugar', 'cane sugar', 'molasses', 'dextrose', 'sucrose', 'granulated sugar', 'powdered sugar', 'confectioner', 'white sugar', 'cup sugar', 'cups sugar', 'tbsp sugar', 'tablespoon sugar', 'teaspoon sugar', 'tsp sugar', 'sugar,'],
+    patterns: ['honey', 'corn syrup', 'high fructose', 'maple syrup', 'agave', 'brown sugar', 'cane sugar', 'molasses', 'dextrose', 'sucrose', 'granulated sugar', 'powdered sugar', 'confectioner', 'white sugar'],
     category: 'Added Sugars',
     weight: 1.8,
     finding: 'Added sugars contribute to energy-dense, nutrient-poor diets. Per-capita added sugar rose from 235 to 318 kcal/day between 1977 and 1996. The US diet derives ~50% of energy from added sugars and fat combined.',
@@ -282,7 +282,7 @@ const ADVISOR_KEYWORDS = [
     citation: 'Monteiro et al., 2010, 2019'
   },
   {
-    patterns: ['olive oil', 'avocado', 'salmon', 'nuts', 'almonds', 'walnuts', 'flaxseed', 'chia', 'fish', 'tuna', 'sardine', 'mackerel'],
+    patterns: ['olive oil', 'sesame oil', 'avocado', 'salmon', 'nuts', 'almonds', 'walnuts', 'cashew', 'pecan', 'pistachio', 'flaxseed', 'chia', 'fish', 'tuna', 'sardine', 'mackerel', 'sesame seed'],
     category: 'Healthy Fats & Omega-3s',
     weight: 1.5,
     finding: 'Unprocessed diets in the NIH trial had an omega-6:omega-3 ratio of 5:1 vs. 11:1 in ultra-processed diets. Participants lost 0.9 kg in 2 weeks on the unprocessed diet and showed improved inflammation markers.',
