@@ -226,7 +226,7 @@ const CHART_UPF_DATA = {
 
 const ADVISOR_KEYWORDS = [
   {
-    patterns: ['sugar', 'corn syrup', 'high fructose', 'honey', 'maple syrup', 'agave', 'brown sugar', 'cane sugar', 'molasses', 'dextrose', 'sucrose'],
+    patterns: ['honey', 'corn syrup', 'high fructose', 'maple syrup', 'agave', 'brown sugar', 'cane sugar', 'molasses', 'dextrose', 'sucrose', 'granulated sugar', 'powdered sugar', 'confectioner', 'white sugar', 'cup sugar', 'cups sugar', 'tbsp sugar', 'tablespoon sugar', 'teaspoon sugar', 'tsp sugar', 'sugar,'],
     category: 'Added Sugars',
     weight: 1.8,
     finding: 'Added sugars contribute to energy-dense, nutrient-poor diets. Per-capita added sugar rose from 235 to 318 kcal/day between 1977 and 1996. The US diet derives ~50% of energy from added sugars and fat combined.',
@@ -290,7 +290,7 @@ const ADVISOR_KEYWORDS = [
     citation: 'Hall et al., 2019 — NIH randomized controlled trial'
   },
   {
-    patterns: ['broccoli', 'spinach', 'kale', 'lettuce', 'tomato', 'carrot', 'cucumber', 'zucchini', 'cauliflower', 'cabbage', 'mushroom', 'asparagus', 'green bean', 'peas', 'bean', 'lentil', 'chickpea'],
+    patterns: ['broccoli', 'spinach', 'kale', 'lettuce', 'tomato', 'carrot', 'cucumber', 'bell pepper', 'red pepper', 'green pepper', 'zucchini', 'cauliflower', 'cabbage', 'mushroom', 'asparagus', 'green bean', 'snap pea', 'snow pea', 'edamame', 'bean', 'lentil', 'chickpea', 'sweet potato', 'squash', 'eggplant', 'bok choy', 'arugula'],
     category: 'Vegetables & Legumes',
     weight: 1.5,
     finding: 'Vegetables and fruit have energy densities of 0.4–2.0 kJ/g vs. 18–23 kJ/g for chips, chocolate, and doughnuts. A diet emphasizing low-energy-density foods reduced ad libitum intake by 16% with no increase in hunger in both lean and obese women.',

@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
@@ -298,8 +298,47 @@
                     <li><strong>Proportional scoring:</strong> The Health Score (1&ndash;10) is calculated from the <strong>proportion of estimated calories</strong> coming from positive vs. risk ingredients. A recipe where most calories come from salmon and vegetables scores high (green, 8&ndash;10). A recipe dominated by added sugars and deep frying scores low (red, 1&ndash;4). The app also displays the estimated percentage of the recipe&rsquo;s calories attributable to risk categories.</li>
                 </ol>
                 <p>This means a clove of garlic won&rsquo;t offset a cup of sugar &mdash; actual ingredient quantities drive the score, not just the number of categories matched.</p>
-                <p>All analysis runs locally in your browser using keyword matching and quantity parsing &mdash; no data is sent to any server.</p>
-                <p>This is an educational tool, not medical advice. Consult a healthcare professional for personalized dietary guidance.</p>
+            </div>
+
+            <div class="about-block card">
+                <h3>Category Severity Weights</h3>
+                <p>Each ingredient category carries a severity weight reflecting the strength and type of evidence behind it. These are evidence-informed editorial judgments, not formal meta-analytic calculations. The reasoning:</p>
+                <table class="weight-table">
+                    <thead>
+                        <tr><th>Category</th><th>Weight</th><th>Evidence basis</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Sugar-Sweetened Beverages</td><td>2.0</td><td>88-study meta-analysis + NIH RCT + multiple cohorts</td></tr>
+                        <tr><td>Added Sugars</td><td>1.8</td><td>Strong evidence across energy density + economic studies</td></tr>
+                        <tr><td>Hyper-Palatable Snacks</td><td>1.8</td><td>Highest energy density (23 kJ/g) + independent overconsumption driver</td></tr>
+                        <tr><td>Frying</td><td>1.5</td><td>6x energy density increase (Rolls 1999; Fazzino 2023)</td></tr>
+                        <tr><td>Saturated/Added Fats</td><td>1.3</td><td>Energy density driver, though fat content alone isn&rsquo;t causal (Rolls 1999)</td></tr>
+                        <tr><td>Processed Meats</td><td>1.3</td><td>NOVA Group 4 classification + sodium data from Hall 2019 RCT</td></tr>
+                        <tr><td>Refined Grains</td><td>1.0</td><td>Fiber difference from Hall 2019 RCT, less direct causal evidence</td></tr>
+                        <tr><td>Cheese</td><td>0.5</td><td>NOVA Group 3 (not ultra-processed), observational data only</td></tr>
+                        <tr class="weight-positive"><td>Vegetables, Fruits, Healthy Fats</td><td>1.5</td><td>Strong protective evidence across multiple studies</td></tr>
+                        <tr class="weight-positive"><td>Aromatics &amp; Herbs</td><td>0.2</td><td>Negligible calories; indirect marker of cooking from scratch</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="about-block card">
+                <h3>How the Quiz Category Weights Work</h3>
+                <p>The Food Score quiz has 12 questions spread across 5 categories. The number of questions per category roughly reflects the volume and strength of evidence:</p>
+                <table class="weight-table">
+                    <thead>
+                        <tr><th>Category</th><th>Questions</th><th>Max Score</th><th>Key studies</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Ultra-Processed Food Exposure</td><td>3</td><td>30</td><td>Hall 2019 (RCT); Monteiro 2010, 2018, 2019 (NOVA framework)</td></tr>
+                        <tr><td>Portion Habits</td><td>3</td><td>30</td><td>Rolls 2002 (experiment); Nielsen &amp; Popkin 2003; Fazzino 2023</td></tr>
+                        <tr><td>Liquid Calories</td><td>2</td><td>20</td><td>Vartanian 2007 (88-study meta-analysis); Brownell 2009</td></tr>
+                        <tr><td>Food Environment</td><td>2</td><td>20</td><td>Pereira 2005 (15-year cohort); Swinburn 1999, 2011</td></tr>
+                        <tr><td>Protective Habits</td><td>2</td><td>20</td><td>Rolls 1999 (energy density); Drewnowski 2004</td></tr>
+                    </tbody>
+                </table>
+                <p>Categories with more supporting studies (UPF, Portions) have more questions and therefore more influence on the final score. Raw scores are summed and normalized to 0&ndash;100.</p>
+                <p>All analysis runs locally in your browser &mdash; no data is sent to any server. This is an educational tool, not medical advice. Consult a healthcare professional for personalized dietary guidance.</p>
             </div>
         </div>
     </section>

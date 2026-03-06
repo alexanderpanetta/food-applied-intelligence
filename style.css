@@ -972,6 +972,46 @@ body::before {
   font-weight: 700;
 }
 
+.weight-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin-top: 12px;
+}
+
+.weight-table th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--green-mid);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.weight-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+.weight-table td:nth-child(2) {
+  font-weight: 700;
+  color: var(--coral);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.weight-positive td:nth-child(2) {
+  color: var(--green-mid);
+}
+
+.weight-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .evidence-types {
   list-style: none;
   padding-left: 0;
