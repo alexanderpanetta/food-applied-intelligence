@@ -306,6 +306,14 @@ const ADVISOR_KEYWORDS = [
     citation: 'Rolls et al., 1999; Drewnowski & Specter, 2004'
   },
   {
+    patterns: ['egg', 'chicken', 'turkey', 'beef', 'steak', 'pork', 'lamb', 'shrimp', 'prawn', 'tofu', 'tempeh', 'milk', 'evaporated milk', 'yogurt', 'greek yogurt'],
+    category: 'Whole Proteins & Dairy',
+    weight: 1.0,
+    finding: 'Whole, minimally processed proteins and dairy are NOVA Group 1 (unprocessed) foods. In the Hall 2019 NIH trial, the unprocessed diet — which included meats, eggs, and dairy — produced spontaneous weight loss of 0.9 kg in 2 weeks with no calorie counting.',
+    suggestion: 'These are whole-food ingredients. Keep them — they\'re part of the unprocessed diet pattern associated with better health outcomes.',
+    citation: 'Hall et al., 2019; Monteiro et al., 2010, 2019 (NOVA classification)'
+  },
+  {
     patterns: ['garlic', 'onion', 'ginger', 'pepper', 'celery', 'shallot', 'scallion', 'chive', 'cilantro', 'parsley', 'basil', 'oregano', 'thyme', 'rosemary', 'cumin', 'paprika', 'turmeric'],
     category: 'Aromatics & Herbs',
     weight: 0.2,

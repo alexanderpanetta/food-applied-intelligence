@@ -547,6 +547,7 @@
     'Cheese / Dairy Fat':      { cup: 440, oz: 110, slice: 70, tbsp: 55, lb: 1760, fallback: 110 },
     'Frying / High-Heat Oil Cooking': { cup: 1900, tbsp: 120, tsp: 40, fallback: 200 },
     'Healthy Fats & Omega-3s': { cup: 800, tbsp: 120, oz: 55, lb: 900, fillet: 400, can: 200, fallback: 200 },
+    'Whole Proteins & Dairy':  { cup: 150, oz: 45, lb: 700, fallback: 70 },
     'Vegetables & Legumes':    { cup: 35, oz: 10, lb: 130, can: 100, bunch: 30, head: 50, fallback: 30 },
     'Aromatics & Herbs':       { clove: 4, tsp: 2, tbsp: 5, bunch: 10, sprig: 1, fallback: 5 },
     'Whole Fruits':            { cup: 60, oz: 15, lb: 240, fallback: 50 }
@@ -579,13 +580,22 @@
     // Look at the 60 chars before the matched ingredient
     var prefix = input.substring(Math.max(0, idx - 60), idx);
 
-    // Only search from the last newline (stay on the same recipe line)
+    // Search from the last newline (stay on the same recipe line)
     var lastNL = prefix.lastIndexOf('\n');
-    if (lastNL >= 0) prefix = prefix.substring(lastNL + 1);
+    var linePrefix = lastNL >= 0 ? prefix.substring(lastNL + 1) : prefix;
 
     // Find the first number + optional unit on this line
     // Handles "3 cups white cabbage" — finds "3" + "cups" even with adjectives in between
-    var numMatch = prefix.match(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+\.?\d*)\s*(?:-\s*)?(\w+)?/);
+    var numMatch = linePrefix.match(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+\.?\d*)\s*(?:-\s*)?(\w+)?/);
+
+    // If no match on current line, check the previous line (handles "6\neggs" format)
+    if (!numMatch && lastNL >= 0) {
+      var prevLine = prefix.substring(0, lastNL);
+      var prevNL = prevLine.lastIndexOf('\n');
+      prevLine = prevNL >= 0 ? prevLine.substring(prevNL + 1) : prevLine;
+      numMatch = prevLine.match(/(\d+\s+\d+\/\d+|\d+\/\d+|\d+\.?\d*)\s*(?:-\s*)?(\w+)?/);
+    }
+
     if (!numMatch) return null;
 
     var numStr = numMatch[1].trim();
@@ -672,6 +682,7 @@
           isPositive: entry.category === 'Vegetables & Legumes' ||
                       entry.category === 'Whole Fruits' ||
                       entry.category === 'Healthy Fats & Omega-3s' ||
+                      entry.category === 'Whole Proteins & Dairy' ||
                       entry.category === 'Aromatics & Herbs',
           weight: entry.weight || 1
         });
