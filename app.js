@@ -582,7 +582,24 @@
       return (a.isPositive ? 1 : 0) - (b.isPositive ? 1 : 0);
     });
 
-    var html = '<h3>Analysis — ' + findings.length + ' categories identified</h3>';
+    // Calculate health score (1-10)
+    var positives = 0;
+    var risks = 0;
+    findings.forEach(function (f) {
+      if (f.isPositive) positives++;
+      else risks++;
+    });
+    var healthScore = Math.round(5 + (positives * 1.5) - (risks * 1));
+    healthScore = Math.max(1, Math.min(10, healthScore));
+
+    var scoreClass = healthScore <= 4 ? 'score-red' : healthScore <= 7 ? 'score-yellow' : 'score-green';
+
+    var html =
+      '<div class="recipe-score-wrap">' +
+        '<div class="recipe-score ' + scoreClass + '">' + healthScore + '<span>/10</span></div>' +
+        '<div class="recipe-score-label">Health Score</div>' +
+        '<div class="recipe-score-detail">' + positives + ' positive and ' + risks + ' risk categor' + (risks === 1 ? 'y' : 'ies') + ' identified</div>' +
+      '</div>';
 
     findings.forEach(function (f) {
       html +=

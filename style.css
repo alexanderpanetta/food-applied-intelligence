@@ -757,6 +757,44 @@ body::before {
   color: var(--green-light);
 }
 
+.recipe-score-wrap {
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.recipe-score {
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.recipe-score span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.recipe-score.score-red { color: #c1121f; }
+.recipe-score.score-yellow { color: #e9a100; }
+.recipe-score.score-green { color: var(--green-mid); }
+
+.recipe-score-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.recipe-score-detail {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
 .advisor-note {
   text-align: center;
   font-size: 0.8rem;
