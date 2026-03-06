@@ -293,7 +293,7 @@
                 <h3>How the Recipe Health Score Works</h3>
                 <p>When you paste a recipe into the Recipe Assistant, the app does three things:</p>
                 <ol>
-                    <li><strong>Ingredient matching:</strong> It scans for ingredients across 12 evidence-based categories &mdash; 4 positive (vegetables, fruits, healthy fats, aromatics/herbs) and 8 risk (added sugars, saturated fats, SSBs, refined grains, hyper-palatable snacks, processed meats, cheese, and frying).</li>
+                    <li><strong>Ingredient matching:</strong> It scans for ingredients across 14 evidence-based categories &mdash; 6 positive (vegetables, fruits, healthy fats, whole proteins &amp; dairy, whole grains, aromatics/herbs) and 8 risk (added sugars, saturated fats, SSBs, refined grains, hyper-palatable snacks, processed meats, cheese, and frying).</li>
                     <li><strong>Quantity parsing:</strong> For each matched ingredient, the app reads the quantity and unit from the recipe text (e.g., &ldquo;1/4 cup,&rdquo; &ldquo;2 tablespoons,&rdquo; &ldquo;1 pound&rdquo;). It then estimates the caloric contribution of each ingredient using a lookup table of approximate calories per unit for each category. For example, 1/4 cup of maple syrup &asymp; 193 calories, while 2 cloves of garlic &asymp; 8 calories.</li>
                     <li><strong>Proportional scoring:</strong> The Health Score (1&ndash;10) is calculated from the <strong>proportion of estimated calories</strong> coming from positive vs. risk ingredients. A recipe where most calories come from salmon and vegetables scores high (green, 8&ndash;10). A recipe dominated by added sugars and deep frying scores low (red, 1&ndash;4). The app also displays the estimated percentage of the recipe&rsquo;s calories attributable to risk categories.</li>
                 </ol>
@@ -317,6 +317,8 @@
                         <tr><td>Refined Grains</td><td>1.0</td><td>Fiber difference from Hall 2019 RCT, less direct causal evidence</td></tr>
                         <tr><td>Cheese</td><td>0.5</td><td>NOVA Group 3 (not ultra-processed), observational data only</td></tr>
                         <tr class="weight-positive"><td>Vegetables, Fruits, Healthy Fats</td><td>1.5</td><td>Strong protective evidence across multiple studies</td></tr>
+                        <tr class="weight-positive"><td>Whole Proteins &amp; Dairy</td><td>1.0</td><td>NOVA Group 1 (unprocessed); core of the unprocessed diet in Hall 2019 RCT</td></tr>
+                        <tr class="weight-positive"><td>Whole Grains</td><td>1.0</td><td>NOVA Group 1; primary vehicle for dietary fiber (Hall 2019 RCT)</td></tr>
                         <tr class="weight-positive"><td>Aromatics &amp; Herbs</td><td>0.2</td><td>Negligible calories; indirect marker of cooking from scratch</td></tr>
                     </tbody>
                 </table>
