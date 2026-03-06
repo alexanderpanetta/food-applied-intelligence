@@ -758,12 +758,9 @@ body::before {
 }
 
 .advisor-minor {
-  opacity: 0.75;
-  border-left: 3px solid rgba(156,163,175,0.4);
-}
-
-.advisor-minor .advisor-finding-category {
   color: #9ca3af;
+  font-size: 0.85rem;
+  padding: 8px 0;
 }
 
 .recipe-score-wrap {

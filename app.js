@@ -745,11 +745,8 @@
 
       if (isMinorRisk) {
         html +=
-          '<div class="advisor-finding advisor-minor">' +
-            '<div class="advisor-finding-category">&#9432; ' + f.category + ' (minor — ~' + catPct + '% of recipe calories)</div>' +
-            '<div class="advisor-finding-matched">Matched: ' + f.matched.join(', ') + '</div>' +
-            '<div class="advisor-finding-text">A small amount in context. ' + f.suggestion + '</div>' +
-            '<span class="citation">' + f.citation + '</span>' +
+          '<div class="advisor-minor">' +
+            '&#9432; ' + f.category + ': ' + f.matched.join(', ') + ' (~' + catPct + '% of recipe calories — minor)' +
           '</div>';
       } else {
         html +=

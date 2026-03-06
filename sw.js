@@ -1,10 +1,10 @@
-const CACHE_NAME = 'food-ai-v3';
+const CACHE_NAME = 'food-ai-v4';
 const ASSETS = [
   './',
   './index.html',
-  './style.css?v=7',
-  './data.js?v=3',
-  './app.js?v=3',
+  './style.css?v=8',
+  './data.js?v=4',
+  './app.js?v=4',
   './assets/bg.png',
   './assets/icon-192.png',
   './assets/icon-512.png',
