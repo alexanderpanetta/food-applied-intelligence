@@ -698,6 +698,7 @@
 
     findings.forEach(function (f) {
       var estCal = estimateCalories(f.category, input, f.matched);
+      f.estCal = estCal;
 
       if (f.isPositive) {
         positiveCal += estCal;
@@ -739,18 +740,31 @@
       '</div>';
 
     findings.forEach(function (f) {
-      html +=
-        '<div class="advisor-finding' + (f.isPositive ? ' advisor-positive' : '') + '">' +
-          '<div class="advisor-finding-category">' +
-            (f.isPositive ? '&#10003; ' : '&#9888; ') + f.category +
-          '</div>' +
-          '<div class="advisor-finding-matched">Matched: ' + f.matched.join(', ') + '</div>' +
-          '<div class="advisor-finding-text">' + f.finding + '</div>' +
-          '<div class="advisor-suggestion">' +
-            (f.isPositive ? '' : 'Suggestion: ') + f.suggestion +
-          '</div>' +
-          '<span class="citation">' + f.citation + '</span>' +
-        '</div>';
+      var catPct = totalCal > 0 ? Math.round((f.estCal / totalCal) * 100) : 0;
+      var isMinorRisk = !f.isPositive && catPct < 15;
+
+      if (isMinorRisk) {
+        html +=
+          '<div class="advisor-finding advisor-minor">' +
+            '<div class="advisor-finding-category">&#9432; ' + f.category + ' (minor — ~' + catPct + '% of recipe calories)</div>' +
+            '<div class="advisor-finding-matched">Matched: ' + f.matched.join(', ') + '</div>' +
+            '<div class="advisor-finding-text">A small amount in context. ' + f.suggestion + '</div>' +
+            '<span class="citation">' + f.citation + '</span>' +
+          '</div>';
+      } else {
+        html +=
+          '<div class="advisor-finding' + (f.isPositive ? ' advisor-positive' : '') + '">' +
+            '<div class="advisor-finding-category">' +
+              (f.isPositive ? '&#10003; ' : '&#9888; ') + f.category +
+            '</div>' +
+            '<div class="advisor-finding-matched">Matched: ' + f.matched.join(', ') + '</div>' +
+            '<div class="advisor-finding-text">' + f.finding + '</div>' +
+            '<div class="advisor-suggestion">' +
+              (f.isPositive ? '' : 'Suggestion: ') + f.suggestion +
+            '</div>' +
+            '<span class="citation">' + f.citation + '</span>' +
+          '</div>';
+      }
     });
 
     outputEl.innerHTML = html;

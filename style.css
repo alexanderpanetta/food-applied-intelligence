@@ -757,6 +757,15 @@ body::before {
   color: var(--green-light);
 }
 
+.advisor-minor {
+  opacity: 0.75;
+  border-left: 3px solid rgba(156,163,175,0.4);
+}
+
+.advisor-minor .advisor-finding-category {
+  color: #9ca3af;
+}
+
 .recipe-score-wrap {
   text-align: center;
   margin-bottom: 28px;
