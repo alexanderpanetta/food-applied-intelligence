@@ -230,7 +230,7 @@ const ADVISOR_KEYWORDS = [
     category: 'Added Sugars',
     weight: 1.8,
     finding: 'Added sugars contribute to energy-dense, nutrient-poor diets. Per-capita added sugar rose from 235 to 318 kcal/day between 1977 and 1996. The US diet derives ~50% of energy from added sugars and fat combined.',
-    suggestion: 'In baking: cut sugar by 25-33% (often unnoticeable). In sauces and glazes: swap for pureed dates, unsweetened applesauce, or a smaller amount of honey. For sweetening drinks: try cinnamon, vanilla extract, or whole fruit muddled in.',
+    suggestion: 'In baking: cut sugar by 25-33% (often unnoticeable) and add vanilla or cinnamon to boost perceived sweetness. In sauces and glazes: try pureed dates, mashed ripe banana, or a splash of orange juice for natural sweetness. For marinades: use balsamic vinegar, which adds depth without refined sugar.',
     citation: 'Drewnowski & Specter, 2004; Vartanian et al., 2007'
   },
   {
@@ -238,7 +238,7 @@ const ADVISOR_KEYWORDS = [
     category: 'Saturated/Added Fats',
     weight: 1.3,
     finding: 'Fat content alone doesn\'t drive overconsumption — energy density does (Rolls 1999). But added fats increase energy density dramatically. At equal energy density, high-fat and low-fat meals produce identical intake.',
-    suggestion: 'In baking: replace half the butter with pumpkin puree or Greek yogurt. For sauteing: use olive oil or broth. For cream sauces: blend silken tofu, cashew cream, or pureed white beans to add body at lower energy density. For spreads: try hummus, ricotta, or mashed avocado.',
+    suggestion: 'In baking: replace half the butter with pumpkin puree, unsweetened applesauce, or Greek yogurt (these add moisture, not sweetness). For sauteing: use a small amount of olive oil or broth instead. For cream sauces: blend silken tofu, soaked cashews, or pureed white beans for richness at lower energy density. For spreads: try hummus, ricotta, or avocado.',
     citation: 'Rolls et al., 1999 — controlled experiment'
   },
   {
